@@ -39,13 +39,16 @@ export const login = (email: string, password: string) => async (dispatch: Dispa
   dispatch(loggingIn());
 
   try {
-    const sessionResponse = await apiFetch('authentication', {
+    const sessionResponse = await apiFetch<AdminLoginResponse>('authentication', {
       method: 'POST',
       body: {
         email,
         password,
       },
-    }) as AdminLoginResponse;
+    });
+    if (!sessionResponse) {
+      throw Error('login error:');
+    }
     dispatch(loginSucceeded(sessionResponse));
     dispatch(push(appPaths.adminEventsList));
     return true;

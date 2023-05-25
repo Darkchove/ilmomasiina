@@ -2,7 +2,6 @@ export interface FetchOptions {
   method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
   body?: any;
   headers?: Record<string, string>;
-  accessToken?: string;
   signal?: AbortSignal;
 }
 
@@ -43,15 +42,12 @@ export function configureApi(url: string) {
   apiUrl = url;
 }
 
-export default async function apiFetch(uri: string, {
-  method = 'GET', body, headers, accessToken, signal,
+export default async function apiFetch<T = any>(uri: string, {
+  method = 'GET', body, headers, signal,
 }: FetchOptions = {}) {
   const allHeaders = {
     ...headers || {},
   };
-  if (accessToken) {
-    allHeaders.Authorization = accessToken;
-  }
   if (body !== undefined) {
     allHeaders['Content-Type'] = 'application/json; charset=utf-8';
   }
@@ -66,5 +62,5 @@ export default async function apiFetch(uri: string, {
   if (!response.ok) {
     throw await ApiError.fromResponse(response);
   }
-  return response.status === 204 ? null : response.json();
+  return response.status === 204 ? null : response.json() as T;
 }
