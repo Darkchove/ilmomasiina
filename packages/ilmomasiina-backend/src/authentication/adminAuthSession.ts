@@ -13,7 +13,7 @@ export interface AdminTokenData {
 
 export default class AdminAuthSession {
   /** Session lifetime in seconds */
-  static TTL = 10 * 60;
+  static TTL = 30 * 60;
 
   private readonly sign: typeof SignerSync;
   private readonly verify: typeof VerifierSync;
