@@ -13,7 +13,7 @@ const RENEW_LOGIN_THRESHOLD = 5 * 60 * 1000;
  * action if necessary.
  */
 // eslint-disable-next-line max-len
-export default async function adminApiFetch<T = any>(uri: string, opts: AdminApiFetchOptions, dispatch: DispatchAction) {
+export default async function adminApiFetch<T = unknown>(uri: string, opts: AdminApiFetchOptions, dispatch: DispatchAction) {
   try {
     const { accessToken } = opts;
     if (!accessToken) {
