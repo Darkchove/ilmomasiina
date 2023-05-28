@@ -47,7 +47,7 @@ export const login = (email: string, password: string) => async (dispatch: Dispa
       },
     });
     if (!sessionResponse) {
-      throw Error('login error:');
+      throw Error('Bad response');
     }
     dispatch(loginSucceeded(sessionResponse));
     dispatch(push(appPaths.adminEventsList));
